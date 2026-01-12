@@ -1,0 +1,76 @@
+// import java.util.*;
+import java.io.*;
+
+public class RangeQueries {
+    public static void main(String[] args) throws IOException {
+        // Fast Byte Reader
+        Reader sc = new Reader();
+        // PrintWriter with a large buffer for fast output
+        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out), 1 << 16));
+        
+        int n = sc.nextInt();
+        int q = sc.nextInt();
+        
+        long[] pref = new long[n + 1];
+        for (int i = 1; i <= n; i++) {
+            pref[i] = pref[i - 1] + sc.nextLong();
+        }
+        
+        while (q-- > 0) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            out.println(pref[b] - pref[a - 1]);
+        }
+        
+        out.flush();
+        out.close();
+    }
+
+    // Fastest way to read input in Java (using byte buffer)
+    static class Reader {
+        private final int BUFFER_SIZE = 1 << 16;
+        private DataInputStream din;
+        private byte[] buffer;
+        private int bufferPointer, bytesRead;
+
+        public Reader() {
+            din = new DataInputStream(System.in);
+            buffer = new byte[BUFFER_SIZE];
+            bufferPointer = bytesRead = 0;
+        }
+
+        public int nextInt() throws IOException {
+            int ret = 0;
+            byte c = read();
+            while (c <= ' ') c = read();
+            boolean neg = (c == '-');
+            if (neg) c = read();
+            do {
+                ret = ret * 10 + c - '0';
+            } while ((c = read()) >= '0' && c <= '9');
+            return neg ? -ret : ret;
+        }
+
+        public long nextLong() throws IOException {
+            long ret = 0;
+            byte c = read();
+            while (c <= ' ') c = read();
+            boolean neg = (c == '-');
+            if (neg) c = read();
+            do {
+                ret = ret * 10 + c - '0';
+            } while ((c = read()) >= '0' && c <= '9');
+            return neg ? -ret : ret;
+        }
+
+        private void fillBuffer() throws IOException {
+            bytesRead = din.read(buffer, bufferPointer = 0, BUFFER_SIZE);
+            if (bytesRead == -1) buffer[0] = -1;
+        }
+
+        private byte read() throws IOException {
+            if (bufferPointer == bytesRead) fillBuffer();
+            return buffer[bufferPointer++];
+        }
+    }
+}
