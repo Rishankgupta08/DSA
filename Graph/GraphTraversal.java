@@ -1,5 +1,7 @@
 package Graph;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Graph{
     int V;
@@ -20,6 +22,66 @@ class Graph{
             System.out.print(i + " --> ");
             System.out.println(l.get(i));
         }
+    }
+    void bfs(){
+        Queue<Integer> q= new LinkedList<>();
+        boolean[] visited=new boolean[V];
+        q.offer(0);
+        visited[0]=true;
+        while(q.size()>0){
+            int u=q.poll();
+            System.out.print(u+" ");
+            for(int v: l.get(u)){
+                if(!visited[v]){
+                    visited[v]=true;
+                    q.offer(v);
+                }
+            }
+        }
+
+    }
+
+    void dfsHelper(int u,boolean[] visited){
+        System.out.print(u+" ");
+        visited[u]=true;
+        for(int v: l.get(u)){
+            if(!visited[v]){
+                dfsHelper(v,visited);
+            }
+        }
+    }
+    void dfs(){
+        int src=0;
+        boolean[] visited=new boolean[V];
+        dfsHelper(src, visited);
+    }
+
+
+    boolean hasCycledfs(){
+        boolean[] visited=new boolean[V];
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                if(dfscycle(i,-1,visited)){
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+    private boolean dfscycle(int u, int parent, boolean[] visited) {
+
+        visited[u]=true;
+        for(int v: l.get(u)){
+            if(!visited[v]){
+                dfscycle(v, u, visited);
+            }else{
+                if(v!=parent){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
