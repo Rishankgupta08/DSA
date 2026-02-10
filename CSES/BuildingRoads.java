@@ -10,7 +10,6 @@ public class BuildingRoads{
         StringTokenizer st=new StringTokenizer(br.readLine());
         int n=Integer.parseInt(st.nextToken());
         int ed=Integer.parseInt(st.nextToken());
-        int[][] edge=new int[ed][2];
         ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
         for(int i=0;i<n+1;i++){
             adj.add(new ArrayList<>());
