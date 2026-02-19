@@ -1,8 +1,8 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+// import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+// import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -28,22 +28,17 @@ class BuildingRoadsDSU{
 
             }
         }
-        for(int i : parent){
-            System.out.print(i+" ");
-        }
-        System.out.println();
-        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+        
         ArrayList<Integer> ans=new ArrayList<>();
         for(int i=1;i<=n;i++){
-            if(i==parent[i])
+            if(i==parent[i]){
                 ans.add(i);
+            }
         }
-        bw.write(comp+"\n");
-        System.out.println();
-        for(int i: ans){
-            bw.write(i+" ");
+        System.out.println(comp-1);
+        for(int i=0;i<ans.size()-1;i++){
+            System.out.println (ans.get(i)+" "+ans.get(i+1));
         }
-        bw.flush();
 
     }
     public static boolean union(int x,int y,int[] parent,int[] rank){
