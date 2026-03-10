@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class TreeMaxCost{
-    static long[] dist;
+public class TreePainting{
     static long[] subtree;
     static long[] ans;
     static long N;
@@ -17,21 +16,14 @@ public class TreeMaxCost{
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         int n=Integer.parseInt(br.readLine());
         subtree=new long[n+1];
-        dist=new long[n+1];
         ans=new long[n+1];
-        N=0;
-        StringTokenizer st=new StringTokenizer(br.readLine());
-        for(int i=1;i<=n;i++){
-            subtree[i]=Integer.parseInt(st.nextToken());
-            N+=subtree[i];
-        }
-        
+        N=n;
         tree=new ArrayList[n+1];
         for(int i=1;i<=n;i++){
             tree[i]=new ArrayList<>();
         }
         for(int i=0;i<n-1;i++){
-            st=new StringTokenizer(br.readLine());
+            StringTokenizer st=new StringTokenizer(br.readLine());
             int u=Integer.parseInt(st.nextToken());
             int v=Integer.parseInt(st.nextToken());
             tree[u].add(v);
@@ -39,7 +31,6 @@ public class TreeMaxCost{
         }
 
         dfs(1,-1);
-        ans[1]=dist[1];
         reRoot(1,-1);
         long max=Integer.MIN_VALUE;
         for(int i=1;i<=n;i++){
@@ -48,12 +39,13 @@ public class TreeMaxCost{
         System.out.println(max);
     }
     public static void dfs(int src,int par){
+        subtree[src]=1;
         for(int v: tree[src]){
             if(v==par) continue;
             dfs(v,src);
             subtree[src]+=subtree[v];
-            dist[src]+=dist[v]+subtree[v];
         }
+        ans[1]+=subtree[src];
     }
     public static void reRoot(int src,int par){
         for(int v: tree[src]){

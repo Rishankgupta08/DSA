@@ -1,5 +1,3 @@
-// package HWI;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class TreePainting{
+public class TreeMaxCost{
     static long[] dist;
     static long[] subtree;
     static long[] ans;
@@ -19,13 +17,19 @@ public class TreePainting{
         subtree=new long[n+1];
         dist=new long[n+1];
         ans=new long[n+1];
-        N=n;
+        N=0;
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        for(int i=1;i<=n;i++){
+            subtree[i]=Integer.parseInt(st.nextToken());
+            N+=subtree[i];
+        }
+        
         tree=new ArrayList[n+1];
         for(int i=1;i<=n;i++){
             tree[i]=new ArrayList<>();
         }
         for(int i=0;i<n-1;i++){
-            StringTokenizer st=new StringTokenizer(br.readLine());
+            st=new StringTokenizer(br.readLine());
             int u=Integer.parseInt(st.nextToken());
             int v=Integer.parseInt(st.nextToken());
             tree[u].add(v);
@@ -39,10 +43,9 @@ public class TreePainting{
         for(int i=1;i<=n;i++){
             max=Math.max(max,ans[i]);
         }
-        System.out.println(max+n);
+        System.out.println(max);
     }
     public static void dfs(int src,int par){
-        subtree[src]=1;
         for(int v: tree[src]){
             if(v==par) continue;
             dfs(v,src);
