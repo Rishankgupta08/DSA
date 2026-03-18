@@ -1,0 +1,5 @@
+package SegmentTree;
+
+class SalaryQueries{
+    
+}
