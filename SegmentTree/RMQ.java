@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 class RMQ{
     static long[] tree;
     static long[] lazy;
+    static int[] idx;
     public static void main(String[] args) throws Exception{
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st=new StringTokenizer(br.readLine());
@@ -14,6 +15,7 @@ class RMQ{
         long[] arr=new long[n];
         tree=new long[4*n];
         lazy=new long[4*n];
+        idx=new int[4*n];
         st=new StringTokenizer(br.readLine());
         for(int i=0;i<n;i++){
             arr[i]=Long.parseLong(st.nextToken());
